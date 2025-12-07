@@ -1,0 +1,26 @@
+{
+  "name": "photobooth-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^39.2.6",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "@jimp/custom": "^0.22.12",
+    "@jimp/plugins": "^0.22.12",
+    "@jimp/types": "^1.6.0",
+    "electron-log": "^5.4.3",
+    "electron-store": "^8.1.0",
+    "node-thermal-printer": "^4.5.0"
+  }
+}

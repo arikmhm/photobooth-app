@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Electron POS58B</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #222; color: white; padding: 20px; }
+        .btn { padding: 15px 30px; margin: 10px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; }
+        .btn-blue { background: #007bff; color: white; }
+        .btn-green { background: #28a745; color: white; }
+        .log-box { text-align: left; background: #000; color: #0f0; padding: 10px; margin: 20px auto; width: 600px; height: 200px; overflow-y: scroll; font-family: monospace; border: 1px solid #444; }
+    </style>
+</head>
+<body>
+    <h1>Test Printer POS58B</h1>
+    
+    <div class="controls">
+        <button id="btnPrint" class="btn btn-blue">🖨️ Print Biasa (A4/PDF)</button>
+        <button id="btnPrintReceipt" class="btn btn-green">🧾 Print Struk (POS58B)</button>
+    </div>
+
+    <div class="log-box" id="consoleLog">Logs...<br></div>
+
+    <script>
+        const logBox = document.getElementById('consoleLog');
+        function log(msg) {
+            const time = new Date().toLocaleTimeString();
+            logBox.innerHTML += `[${time}] ${msg}<br>`;
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        // Test Print Biasa
+        document.getElementById('btnPrint').addEventListener('click', async () => {
+            log("⏳ Mengirim Print Biasa...");
+            const res = await window.photoboothAPI.silentPrint();
+            log(res.success ? "✅ Print Biasa OK" : "❌ Gagal: " + res.error);
+        });
+
+        // Test Print Struk POS58B
+        document.getElementById('btnPrintReceipt').addEventListener('click', async () => {
+            log("⏳ Mengirim Print ESC/POS ke Printer Thermal...");
+            
+            const dataStruk = {
+                text: "Item: Foto 4x6\nHarga: Rp 25.000\nStatus: Lunas"
+            };
+
+            const res = await window.photoboothAPI.printReceipt(dataStruk);
+            
+            if (res.success) {
+                log("✅ Print Struk SUKSES!");
+            } else {
+                log("❌ Gagal Print Struk: " + res.error);
+                log("⚠️ TIP: Cek apakah nama printer di config.json sudah sesuai?");
+            }
+        });
+    </script>
+</body>
+</html>

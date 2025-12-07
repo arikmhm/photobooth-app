@@ -1,0 +1,12 @@
+{
+  "appUrl": "https://photobooth-anda.com/kiosk",
+  "kioskMode": true,
+  "printer": {
+    "name": "EPSON_L3110_Series", // Nama printer di OS
+    "silent": true
+  },
+  "camera": {
+    "preferredDeviceId": "", // ID kamera eksternal, kosongkan jika auto
+    "fallbackToDefault": true
+  }
+}
